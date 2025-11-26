@@ -21,7 +21,7 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
       <header className="app-header">
         <Link to="/boards" className="app-header__brand">
           <span className="app-header__brand-badge">WB</span>
-          <span>Workboard Suite</span>
+          <span>Krumplo</span>
         </Link>
         <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
           <Link

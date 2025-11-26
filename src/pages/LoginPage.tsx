@@ -3,9 +3,8 @@ import type { ChangeEvent, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../hooks/useAuth";
-import { createAuthApi } from "../services/apiClient";
+import { loginRequest } from "../services/api";
 import type { AuthResponse } from "../types/api";
-import { parseAuthResponse } from "../utils/apiGuards";
 
 interface LoginFormState {
   email: string;
@@ -19,13 +18,7 @@ export const LoginPage = () => {
 
   const mutation = useMutation<AuthResponse, Error, LoginFormState>({
     mutationFn: async (credentials) => {
-      const authApi = createAuthApi();
-      const response = await authApi.authControllerLoginRaw({
-        loginDto: credentials
-      });
-
-      const payload: unknown = await response.raw.json();
-      return parseAuthResponse(payload);
+      return loginRequest(credentials);
     },
     onSuccess: (auth) => {
       login(auth);
@@ -57,7 +50,7 @@ export const LoginPage = () => {
         style={{ width: "min(420px, 100%)", padding: "2.25rem" }}
       >
         <div style={{ marginBottom: "1.75rem" }}>
-          <h1 style={{ margin: 0, fontSize: "1.6rem" }}>Welcome back</h1>
+          <h1 style={{ margin: 0, fontSize: "1.6rem" }}>Login</h1>
           <p className="helper-text" style={{ marginTop: "0.5rem" }}>
             Sign in to access your product workspaces.
           </p>

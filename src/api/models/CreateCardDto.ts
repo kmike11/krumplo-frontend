@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -68,12 +67,6 @@ export interface CreateCardDto {
      * @memberof CreateCardDto
      */
     reporterId?: string;
-    /**
-     * Associated label identifiers
-     * @type {Array<string>}
-     * @memberof CreateCardDto
-     */
-    labelIds?: Array<string>;
 }
 
 
@@ -126,7 +119,6 @@ export function CreateCardDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         'storyPoints': json['storyPoints'] == null ? undefined : json['storyPoints'],
         'assigneeId': json['assigneeId'] == null ? undefined : json['assigneeId'],
         'reporterId': json['reporterId'] == null ? undefined : json['reporterId'],
-        'labelIds': json['labelIds'] == null ? undefined : json['labelIds'],
     };
 }
 
@@ -149,7 +141,6 @@ export function CreateCardDtoToJSONTyped(value?: CreateCardDto | null, ignoreDis
         'storyPoints': value['storyPoints'],
         'assigneeId': value['assigneeId'],
         'reporterId': value['reporterId'],
-        'labelIds': value['labelIds'],
     };
 }
 

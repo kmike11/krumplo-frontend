@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../hooks/useAuth";
 import { LoadingScreen } from "../components/shared/LoadingScreen";
-import { createBoardsApi } from "../services/apiClient";
+import { createBoard, getBoards } from "../services/api";
 import type { BoardSummary, CreateBoardInput } from "../types/api";
 
-const parseBoardSummaries = (payload: unknown): BoardSummary[] => {
+export const parseBoardSummaries = (payload: unknown): BoardSummary[] => {
   if (!Array.isArray(payload)) {
     throw new Error("Unexpected response when loading boards");
   }
@@ -51,9 +51,10 @@ export const BoardListPage = () => {
   >({
     queryKey: ["boards"],
     queryFn: async () => {
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerListBoardsRaw();
-      const payload: unknown = await response.raw.json();
+      if (!token) {
+        throw new Error("Missing authentication token");
+      }
+      const payload = await getBoards(token);
       return parseBoardSummaries(payload);
     },
     enabled: Boolean(token)
@@ -61,11 +62,10 @@ export const BoardListPage = () => {
 
   const createBoardMutation = useMutation<void, Error, CreateBoardInput>({
     mutationFn: async (input: CreateBoardInput) => {
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerCreateBoardRaw({
-        createBoardDto: input
-      });
-      await response.raw.json();
+      if (!token) {
+        throw new Error("Missing authentication token");
+      }
+      await createBoard(input, token);
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["boards"] });

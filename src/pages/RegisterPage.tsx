@@ -3,9 +3,8 @@ import type { ChangeEvent, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "../hooks/useAuth";
-import { createAuthApi } from "../services/apiClient";
+import { registerRequest } from "../services/api";
 import type { AuthResponse } from "../types/api";
-import { parseAuthResponse } from "../utils/apiGuards";
 
 interface RegisterFormState {
   email: string;
@@ -24,13 +23,7 @@ export const RegisterPage = () => {
 
   const mutation = useMutation<AuthResponse, Error, RegisterFormState>({
     mutationFn: async (credentials) => {
-      const authApi = createAuthApi();
-      const response = await authApi.authControllerRegisterRaw({
-        registerDto: { ...credentials, role: "USER" }
-      });
-
-      const payload: unknown = await response.raw.json();
-      return parseAuthResponse(payload);
+      return registerRequest(credentials);
     },
     onSuccess: (auth) => {
       login(auth);

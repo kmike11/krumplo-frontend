@@ -1,8 +1,7 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import { createUsersApi } from "../services/apiClient";
+import { getCurrentUser } from "../services/api";
 import type { AuthResponse, User } from "../types/api";
-import { parseUser } from "../utils/apiGuards";
 
 interface AuthContextValue {
   user: User | null;
@@ -44,10 +43,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       setIsLoading(true);
       try {
-        const usersApi = createUsersApi(token);
-        const response = await usersApi.usersControllerGetCurrentUserRaw();
-        const profilePayload: unknown = await response.raw.json();
-        const profile = parseUser(profilePayload);
+        const profile = await getCurrentUser(token);
         if (!cancelled) {
           setUser(profile);
         }
@@ -87,10 +83,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (!token) {
       return;
     }
-    const usersApi = createUsersApi(token);
-    const response = await usersApi.usersControllerGetCurrentUserRaw();
-    const profilePayload: unknown = await response.raw.json();
-    const profile = parseUser(profilePayload);
+    const profile = await getCurrentUser(token);
     setUser(profile);
   };
 

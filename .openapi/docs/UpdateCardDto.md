@@ -14,7 +14,6 @@ Name | Type
 `storyPoints` | number
 `assigneeId` | string
 `reporterId` | string
-`labelIds` | Array&lt;string&gt;
 
 ## Example
 
@@ -31,7 +30,6 @@ const example = {
   "storyPoints": null,
   "assigneeId": null,
   "reporterId": null,
-  "labelIds": null,
 } satisfies UpdateCardDto
 
 console.log(example)

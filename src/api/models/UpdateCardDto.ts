@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* tslint:disable */
 /* eslint-disable */
 /**
@@ -68,12 +67,6 @@ export interface UpdateCardDto {
      * @memberof UpdateCardDto
      */
     reporterId?: string;
-    /**
-     * Associated label identifiers
-     * @type {Array<string>}
-     * @memberof UpdateCardDto
-     */
-    labelIds?: Array<string>;
 }
 
 
@@ -125,7 +118,6 @@ export function UpdateCardDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         'storyPoints': json['storyPoints'] == null ? undefined : json['storyPoints'],
         'assigneeId': json['assigneeId'] == null ? undefined : json['assigneeId'],
         'reporterId': json['reporterId'] == null ? undefined : json['reporterId'],
-        'labelIds': json['labelIds'] == null ? undefined : json['labelIds'],
     };
 }
 
@@ -148,7 +140,6 @@ export function UpdateCardDtoToJSONTyped(value?: UpdateCardDto | null, ignoreDis
         'storyPoints': value['storyPoints'],
         'assigneeId': value['assigneeId'],
         'reporterId': value['reporterId'],
-        'labelIds': value['labelIds'],
     };
 }
 

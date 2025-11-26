@@ -8,23 +8,34 @@ import { CardDetailsDrawer } from "../components/board/CardDetailsDrawer";
 import { ConfirmDialog } from "../components/board/ConfirmDialog";
 import { BoardSettingsDrawer } from "../components/board/BoardSettingsDrawer";
 import { useAuth } from "../hooks/useAuth";
-import { createBoardsApi } from "../services/apiClient";
-import type { AddBoardMemberDto } from "../api/models/AddBoardMemberDto";
+import {
+  addBoardMember,
+  createCard,
+  createColumn,
+  createComment,
+  deleteBoard,
+  deleteCard,
+  deleteColumn,
+  deleteComment,
+  getBoardById,
+  moveCard,
+  updateBoard,
+  updateCard,
+  updateColumn,
+  updateComment
+} from "../services/api";
 import type { DraggedCard } from "../components/board/dnd";
 import type {
   Board,
   BoardCard,
   BoardColumn,
+  AddBoardMemberInput,
+  AddCommentInput,
   UpdateBoardInput,
   UpdateCardInput,
-  UpdateColumnInput
+  UpdateColumnInput,
+  UpdateCommentInput
 } from "../types/api";
-import type {
-  AddCommentDto,
-  UpdateBoardDto,
-  UpdateCardDto,
-  UpdateCommentDto
-} from "../api";
 
 interface CreateCardVariables {
   columnId: string;
@@ -104,11 +115,7 @@ export const BoardDetailPage = () => {
       if (!boardId || !token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerGetBoardRaw({
-        boardId
-      });
-      return (await response.raw.json()) as Board;
+      return getBoardById(boardId, token);
     }
   });
 
@@ -141,12 +148,7 @@ export const BoardDetailPage = () => {
       if (!boardId || !token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerCreateColumnRaw({
-        boardId,
-        createColumnDto: { title: title.trim() }
-      });
-      return (await response.raw.json()) as Board;
+      return createColumn(boardId, { title: title.trim() }, token);
     },
     onSuccess: (updatedBoard) => {
       if (boardId) {
@@ -162,13 +164,7 @@ export const BoardDetailPage = () => {
         if (!boardId || !token) {
           throw new Error("Missing board context");
         }
-        const boardsApi = createBoardsApi(token);
-        const response = await boardsApi.boardsControllerCreateCardRaw({
-          boardId,
-          columnId,
-          createCardDto: { title: title.trim() }
-        });
-        return (await response.raw.json()) as BoardCard;
+        return createCard(boardId, columnId, { title: title.trim() }, token);
       },
       onMutate: ({ columnId }) => {
         setActiveCardColumn(columnId);
@@ -190,15 +186,14 @@ export const BoardDetailPage = () => {
       if (!token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerMoveCardRaw({
+      return moveCard(
         cardId,
-        moveCardDto: {
+        {
           targetColumnId,
           targetPosition
-        }
-      });
-      return (await response.raw.json()) as BoardCard;
+        },
+        token
+      );
     },
     onSuccess: () => {
       if (boardId) {
@@ -213,16 +208,13 @@ export const BoardDetailPage = () => {
         if (!token) {
           throw new Error("Missing board context");
         }
-        const boardsApi = createBoardsApi(token);
-        const updatePayload: UpdateCardDto = {
+        const updatePayload: UpdateCardInput = {
           ...payload,
-          dueDate: payload.dueDate ? new Date(payload.dueDate) : undefined
+          dueDate: payload.dueDate
+            ? new Date(payload.dueDate).toISOString()
+            : undefined
         };
-        const response = await boardsApi.boardsControllerUpdateCardRaw({
-          cardId,
-          updateCardDto: updatePayload
-        });
-        return (await response.raw.json()) as BoardCard;
+        return updateCard(cardId, updatePayload, token);
       },
       onSuccess: (updatedCard) => {
         replaceCardInBoard(updatedCard);
@@ -240,13 +232,8 @@ export const BoardDetailPage = () => {
         if (!normalized) {
           throw new Error("Comment cannot be empty");
         }
-        const boardsApi = createBoardsApi(token);
-        const payload: AddCommentDto = { content: normalized };
-        const response = await boardsApi.boardsControllerAddCommentRaw({
-          cardId,
-          addCommentDto: payload
-        });
-        return (await response.raw.json()) as BoardCard;
+        const payload: AddCommentInput = { content: normalized };
+        return createComment(cardId, payload, token);
       },
       onSuccess: (updatedCard) => {
         replaceCardInBoard(updatedCard);
@@ -267,14 +254,8 @@ export const BoardDetailPage = () => {
       if (!normalized) {
         throw new Error("Comment cannot be empty");
       }
-      const boardsApi = createBoardsApi(token);
-      const payload: UpdateCommentDto = { content: normalized };
-      const response = await boardsApi.boardsControllerUpdateCommentRaw({
-        cardId,
-        commentId,
-        updateCommentDto: payload
-      });
-      return (await response.raw.json()) as BoardCard;
+      const payload: UpdateCommentInput = { content: normalized };
+      return updateComment(cardId, commentId, payload, token);
     },
     onSuccess: (updatedCard) => {
       replaceCardInBoard(updatedCard);
@@ -290,12 +271,7 @@ export const BoardDetailPage = () => {
       if (!token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerDeleteCommentRaw({
-        cardId,
-        commentId
-      });
-      return (await response.raw.json()) as BoardCard;
+      return deleteComment(cardId, commentId, token);
     },
     onSuccess: (updatedCard) => {
       replaceCardInBoard(updatedCard);
@@ -311,13 +287,7 @@ export const BoardDetailPage = () => {
       if (!boardId || !token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const updatePayload: UpdateBoardDto = { ...payload };
-      const response = await boardsApi.boardsControllerUpdateBoardRaw({
-        boardId,
-        updateBoardDto: updatePayload
-      });
-      return (await response.raw.json()) as Board;
+      return updateBoard(boardId, payload, token);
     },
     onSuccess: (updatedBoard) => {
       if (boardId) {
@@ -333,8 +303,7 @@ export const BoardDetailPage = () => {
       if (!boardId || !token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      await boardsApi.boardsControllerDeleteBoard({ boardId });
+      await deleteBoard(boardId, token);
     },
     onSuccess: () => {
       setIsBoardDeleteDialogOpen(false);
@@ -355,8 +324,7 @@ export const BoardDetailPage = () => {
       if (!token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      await boardsApi.boardsControllerDeleteCard({ cardId });
+      await deleteCard(cardId, token);
     },
     onSuccess: (_, { cardId }) => {
       if (boardId) {
@@ -387,13 +355,12 @@ export const BoardDetailPage = () => {
       if (!boardId || !token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerUpdateColumnRaw({
+      return updateColumn(
         boardId,
         columnId,
-        updateColumnDto: payload as UpdateColumnInput
-      });
-      return (await response.raw.json()) as Board;
+        payload as UpdateColumnInput,
+        token
+      );
     },
     onSuccess: (updatedBoard) => {
       if (boardId) {
@@ -407,12 +374,7 @@ export const BoardDetailPage = () => {
       if (!boardId || !token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerDeleteColumnRaw({
-        boardId,
-        columnId
-      });
-      return (await response.raw.json()) as Board;
+      return deleteColumn(boardId, columnId, token);
     },
     onSuccess: (updatedBoard) => {
       setColumnPendingDeletion(null);
@@ -427,14 +389,8 @@ export const BoardDetailPage = () => {
       if (!boardId || !token) {
         throw new Error("Missing board context");
       }
-      const boardsApi = createBoardsApi(token);
-      const response = await boardsApi.boardsControllerAddMemberRaw({
-        boardId,
-        addBoardMemberDto: {
-          email
-        } as AddBoardMemberDto
-      });
-      return (await response.raw.json()) as Board;
+      const payload: AddBoardMemberInput = { email };
+      return addBoardMember(boardId, payload, token);
     },
     onSuccess: (updatedBoard) => {
       setInviteEmail("");
@@ -873,28 +829,6 @@ export const BoardDetailPage = () => {
               ) : null}
             </form>
           ) : null}
-        </div>
-        <div className="card-surface" style={{ padding: "1.25rem" }}>
-          <h3 style={{ marginTop: 0 }}>Labels</h3>
-          {board.labels.length === 0 ? (
-            <p className="helper-text">No labels defined.</p>
-          ) : (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {board.labels.map((label) => (
-                <span
-                  key={label.id}
-                  className="label-pill"
-                  style={{
-                    background: label.color,
-                    color: "#fff",
-                    fontWeight: 600
-                  }}
-                >
-                  {label.name}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 

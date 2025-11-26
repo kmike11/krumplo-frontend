@@ -1,24 +1,22 @@
 
-# AddBoardMemberDto
+# UpdateCommentDto
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`userId` | string
-`email` | string
+`content` | string
 
 ## Example
 
 ```typescript
-import type { AddBoardMemberDto } from ''
+import type { UpdateCommentDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "userId": null,
-  "email": new.member@example.com,
-} satisfies AddBoardMemberDto
+  "content": Updated comment content.,
+} satisfies UpdateCommentDto
 
 console.log(example)
 
@@ -27,7 +25,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as AddBoardMemberDto
+const exampleParsed = JSON.parse(exampleJSON) as UpdateCommentDto
 console.log(exampleParsed)
 ```
 

@@ -8,6 +8,7 @@
     "dev": "rimraf dist && rsbuild dev",
     "build": "rimraf dist && rsbuild build",
     "build:prod": "npm run build",
+    "test": "jest",
     "lint": "npm run tsc:check && npm run eslint:check && npm run prettier:check",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "eslint:check": "eslint \"src/**/*.{js,ts,tsx}\" --quiet",
@@ -39,6 +40,10 @@
   "devDependencies": {
     "@rsbuild/core": "^1.6.0",
     "@rsbuild/plugin-react": "^1.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.12",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@typescript-eslint/eslint-plugin": "^8.47.0",
@@ -51,7 +56,12 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "husky": "^9.1.7",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^27.2.0",
     "prettier": "^3.6.2",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.9.3"
   }
 }

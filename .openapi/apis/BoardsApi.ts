@@ -15,32 +15,19 @@
 
 import * as runtime from '../runtime';
 import type {
-  AddAttachmentDto,
   AddBoardMemberDto,
   AddCommentDto,
   CreateBoardDto,
   CreateCardDto,
-  CreateChecklistItemDto,
   CreateColumnDto,
-  CreateLabelDto,
-  CreateSprintDto,
   MoveCardDto,
   ReorderColumnsDto,
   UpdateBoardDto,
-  UpdateCardAssigneeDto,
   UpdateCardDto,
-  UpdateCardLabelsDto,
-  UpdateCardSprintDto,
-  UpdateCardWatchersDto,
-  UpdateChecklistItemDto,
   UpdateColumnDto,
-  UpdateLabelDto,
-  UpdateSprintDto,
-  UpdateSprintStatusDto,
+  UpdateCommentDto,
 } from '../models/index';
 import {
-    AddAttachmentDtoFromJSON,
-    AddAttachmentDtoToJSON,
     AddBoardMemberDtoFromJSON,
     AddBoardMemberDtoToJSON,
     AddCommentDtoFromJSON,
@@ -49,46 +36,21 @@ import {
     CreateBoardDtoToJSON,
     CreateCardDtoFromJSON,
     CreateCardDtoToJSON,
-    CreateChecklistItemDtoFromJSON,
-    CreateChecklistItemDtoToJSON,
     CreateColumnDtoFromJSON,
     CreateColumnDtoToJSON,
-    CreateLabelDtoFromJSON,
-    CreateLabelDtoToJSON,
-    CreateSprintDtoFromJSON,
-    CreateSprintDtoToJSON,
     MoveCardDtoFromJSON,
     MoveCardDtoToJSON,
     ReorderColumnsDtoFromJSON,
     ReorderColumnsDtoToJSON,
     UpdateBoardDtoFromJSON,
     UpdateBoardDtoToJSON,
-    UpdateCardAssigneeDtoFromJSON,
-    UpdateCardAssigneeDtoToJSON,
     UpdateCardDtoFromJSON,
     UpdateCardDtoToJSON,
-    UpdateCardLabelsDtoFromJSON,
-    UpdateCardLabelsDtoToJSON,
-    UpdateCardSprintDtoFromJSON,
-    UpdateCardSprintDtoToJSON,
-    UpdateCardWatchersDtoFromJSON,
-    UpdateCardWatchersDtoToJSON,
-    UpdateChecklistItemDtoFromJSON,
-    UpdateChecklistItemDtoToJSON,
     UpdateColumnDtoFromJSON,
     UpdateColumnDtoToJSON,
-    UpdateLabelDtoFromJSON,
-    UpdateLabelDtoToJSON,
-    UpdateSprintDtoFromJSON,
-    UpdateSprintDtoToJSON,
-    UpdateSprintStatusDtoFromJSON,
-    UpdateSprintStatusDtoToJSON,
+    UpdateCommentDtoFromJSON,
+    UpdateCommentDtoToJSON,
 } from '../models/index';
-
-export interface BoardsControllerAddAttachmentRequest {
-    cardId: string;
-    addAttachmentDto: AddAttachmentDto;
-}
 
 export interface BoardsControllerAddCommentRequest {
     cardId: string;
@@ -110,29 +72,9 @@ export interface BoardsControllerCreateCardRequest {
     createCardDto: CreateCardDto;
 }
 
-export interface BoardsControllerCreateChecklistItemRequest {
-    cardId: string;
-    createChecklistItemDto: CreateChecklistItemDto;
-}
-
 export interface BoardsControllerCreateColumnRequest {
     boardId: string;
     createColumnDto: CreateColumnDto;
-}
-
-export interface BoardsControllerCreateLabelRequest {
-    boardId: string;
-    createLabelDto: CreateLabelDto;
-}
-
-export interface BoardsControllerCreateSprintRequest {
-    boardId: string;
-    createSprintDto: CreateSprintDto;
-}
-
-export interface BoardsControllerDeleteAttachmentRequest {
-    cardId: string;
-    attachmentId: string;
 }
 
 export interface BoardsControllerDeleteBoardRequest {
@@ -143,11 +85,6 @@ export interface BoardsControllerDeleteCardRequest {
     cardId: string;
 }
 
-export interface BoardsControllerDeleteChecklistItemRequest {
-    cardId: string;
-    itemId: string;
-}
-
 export interface BoardsControllerDeleteColumnRequest {
     boardId: string;
     columnId: string;
@@ -156,16 +93,6 @@ export interface BoardsControllerDeleteColumnRequest {
 export interface BoardsControllerDeleteCommentRequest {
     cardId: string;
     commentId: string;
-}
-
-export interface BoardsControllerDeleteLabelRequest {
-    boardId: string;
-    labelId: string;
-}
-
-export interface BoardsControllerDeleteSprintRequest {
-    boardId: string;
-    sprintId: string;
 }
 
 export interface BoardsControllerGetBoardRequest {
@@ -197,54 +124,16 @@ export interface BoardsControllerUpdateCardRequest {
     updateCardDto: UpdateCardDto;
 }
 
-export interface BoardsControllerUpdateCardAssigneeRequest {
-    cardId: string;
-    updateCardAssigneeDto: UpdateCardAssigneeDto;
-}
-
-export interface BoardsControllerUpdateCardLabelsRequest {
-    cardId: string;
-    updateCardLabelsDto: UpdateCardLabelsDto;
-}
-
-export interface BoardsControllerUpdateCardSprintRequest {
-    cardId: string;
-    updateCardSprintDto: UpdateCardSprintDto;
-}
-
-export interface BoardsControllerUpdateCardWatchersRequest {
-    cardId: string;
-    updateCardWatchersDto: UpdateCardWatchersDto;
-}
-
-export interface BoardsControllerUpdateChecklistItemRequest {
-    cardId: string;
-    itemId: string;
-    updateChecklistItemDto: UpdateChecklistItemDto;
-}
-
 export interface BoardsControllerUpdateColumnRequest {
     boardId: string;
     columnId: string;
     updateColumnDto: UpdateColumnDto;
 }
 
-export interface BoardsControllerUpdateLabelRequest {
-    boardId: string;
-    labelId: string;
-    updateLabelDto: UpdateLabelDto;
-}
-
-export interface BoardsControllerUpdateSprintRequest {
-    boardId: string;
-    sprintId: string;
-    updateSprintDto: UpdateSprintDto;
-}
-
-export interface BoardsControllerUpdateSprintStatusRequest {
-    boardId: string;
-    sprintId: string;
-    updateSprintStatusDto: UpdateSprintStatusDto;
+export interface BoardsControllerUpdateCommentRequest {
+    cardId: string;
+    commentId: string;
+    updateCommentDto: UpdateCommentDto;
 }
 
 /**
@@ -254,20 +143,6 @@ export interface BoardsControllerUpdateSprintStatusRequest {
  * @interface BoardsApiInterface
  */
 export interface BoardsApiInterface {
-    /**
-     * 
-     * @param {string} cardId 
-     * @param {AddAttachmentDto} addAttachmentDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerAddAttachmentRaw(requestParameters: BoardsControllerAddAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerAddAttachment(requestParameters: BoardsControllerAddAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
     /**
      * 
      * @param {string} cardId 
@@ -326,20 +201,6 @@ export interface BoardsApiInterface {
 
     /**
      * 
-     * @param {string} cardId 
-     * @param {CreateChecklistItemDto} createChecklistItemDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerCreateChecklistItemRaw(requestParameters: BoardsControllerCreateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerCreateChecklistItem(requestParameters: BoardsControllerCreateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
      * @param {string} boardId 
      * @param {CreateColumnDto} createColumnDto 
      * @param {*} [options] Override http request option.
@@ -351,48 +212,6 @@ export interface BoardsApiInterface {
     /**
      */
     boardsControllerCreateColumn(requestParameters: BoardsControllerCreateColumnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} boardId 
-     * @param {CreateLabelDto} createLabelDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerCreateLabelRaw(requestParameters: BoardsControllerCreateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerCreateLabel(requestParameters: BoardsControllerCreateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} boardId 
-     * @param {CreateSprintDto} createSprintDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerCreateSprintRaw(requestParameters: BoardsControllerCreateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerCreateSprint(requestParameters: BoardsControllerCreateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} cardId 
-     * @param {string} attachmentId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerDeleteAttachmentRaw(requestParameters: BoardsControllerDeleteAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerDeleteAttachment(requestParameters: BoardsControllerDeleteAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -422,20 +241,6 @@ export interface BoardsApiInterface {
 
     /**
      * 
-     * @param {string} cardId 
-     * @param {string} itemId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerDeleteChecklistItemRaw(requestParameters: BoardsControllerDeleteChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerDeleteChecklistItem(requestParameters: BoardsControllerDeleteChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
      * @param {string} boardId 
      * @param {string} columnId 
      * @param {*} [options] Override http request option.
@@ -461,34 +266,6 @@ export interface BoardsApiInterface {
     /**
      */
     boardsControllerDeleteComment(requestParameters: BoardsControllerDeleteCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} boardId 
-     * @param {string} labelId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerDeleteLabelRaw(requestParameters: BoardsControllerDeleteLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerDeleteLabel(requestParameters: BoardsControllerDeleteLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} boardId 
-     * @param {string} sprintId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerDeleteSprintRaw(requestParameters: BoardsControllerDeleteSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerDeleteSprint(requestParameters: BoardsControllerDeleteSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * 
@@ -587,77 +364,6 @@ export interface BoardsApiInterface {
 
     /**
      * 
-     * @param {string} cardId 
-     * @param {UpdateCardAssigneeDto} updateCardAssigneeDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerUpdateCardAssigneeRaw(requestParameters: BoardsControllerUpdateCardAssigneeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerUpdateCardAssignee(requestParameters: BoardsControllerUpdateCardAssigneeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} cardId 
-     * @param {UpdateCardLabelsDto} updateCardLabelsDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerUpdateCardLabelsRaw(requestParameters: BoardsControllerUpdateCardLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerUpdateCardLabels(requestParameters: BoardsControllerUpdateCardLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} cardId 
-     * @param {UpdateCardSprintDto} updateCardSprintDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerUpdateCardSprintRaw(requestParameters: BoardsControllerUpdateCardSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerUpdateCardSprint(requestParameters: BoardsControllerUpdateCardSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} cardId 
-     * @param {UpdateCardWatchersDto} updateCardWatchersDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerUpdateCardWatchersRaw(requestParameters: BoardsControllerUpdateCardWatchersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerUpdateCardWatchers(requestParameters: BoardsControllerUpdateCardWatchersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} cardId 
-     * @param {string} itemId 
-     * @param {UpdateChecklistItemDto} updateChecklistItemDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerUpdateChecklistItemRaw(requestParameters: BoardsControllerUpdateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerUpdateChecklistItem(requestParameters: BoardsControllerUpdateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
      * @param {string} boardId 
      * @param {string} columnId 
      * @param {UpdateColumnDto} updateColumnDto 
@@ -673,48 +379,18 @@ export interface BoardsApiInterface {
 
     /**
      * 
-     * @param {string} boardId 
-     * @param {string} labelId 
-     * @param {UpdateLabelDto} updateLabelDto 
+     * @param {string} cardId 
+     * @param {string} commentId 
+     * @param {UpdateCommentDto} updateCommentDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BoardsApiInterface
      */
-    boardsControllerUpdateLabelRaw(requestParameters: BoardsControllerUpdateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    boardsControllerUpdateCommentRaw(requestParameters: BoardsControllerUpdateCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
      */
-    boardsControllerUpdateLabel(requestParameters: BoardsControllerUpdateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} boardId 
-     * @param {string} sprintId 
-     * @param {UpdateSprintDto} updateSprintDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerUpdateSprintRaw(requestParameters: BoardsControllerUpdateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerUpdateSprint(requestParameters: BoardsControllerUpdateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
-
-    /**
-     * 
-     * @param {string} boardId 
-     * @param {string} sprintId 
-     * @param {UpdateSprintStatusDto} updateSprintStatusDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BoardsApiInterface
-     */
-    boardsControllerUpdateSprintStatusRaw(requestParameters: BoardsControllerUpdateSprintStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    boardsControllerUpdateSprintStatus(requestParameters: BoardsControllerUpdateSprintStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    boardsControllerUpdateComment(requestParameters: BoardsControllerUpdateCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
 }
 
@@ -722,58 +398,6 @@ export interface BoardsApiInterface {
  * 
  */
 export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
-
-    /**
-     */
-    async boardsControllerAddAttachmentRaw(requestParameters: BoardsControllerAddAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerAddAttachment().'
-            );
-        }
-
-        if (requestParameters['addAttachmentDto'] == null) {
-            throw new runtime.RequiredError(
-                'addAttachmentDto',
-                'Required parameter "addAttachmentDto" was null or undefined when calling boardsControllerAddAttachment().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/attachments`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: AddAttachmentDtoToJSON(requestParameters['addAttachmentDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerAddAttachment(requestParameters: BoardsControllerAddAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerAddAttachmentRaw(requestParameters, initOverrides);
-    }
 
     /**
      */
@@ -985,58 +609,6 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
 
     /**
      */
-    async boardsControllerCreateChecklistItemRaw(requestParameters: BoardsControllerCreateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerCreateChecklistItem().'
-            );
-        }
-
-        if (requestParameters['createChecklistItemDto'] == null) {
-            throw new runtime.RequiredError(
-                'createChecklistItemDto',
-                'Required parameter "createChecklistItemDto" was null or undefined when calling boardsControllerCreateChecklistItem().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/checklist`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateChecklistItemDtoToJSON(requestParameters['createChecklistItemDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerCreateChecklistItem(requestParameters: BoardsControllerCreateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerCreateChecklistItemRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
     async boardsControllerCreateColumnRaw(requestParameters: BoardsControllerCreateColumnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['boardId'] == null) {
             throw new runtime.RequiredError(
@@ -1085,160 +657,6 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
      */
     async boardsControllerCreateColumn(requestParameters: BoardsControllerCreateColumnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.boardsControllerCreateColumnRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerCreateLabelRaw(requestParameters: BoardsControllerCreateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['boardId'] == null) {
-            throw new runtime.RequiredError(
-                'boardId',
-                'Required parameter "boardId" was null or undefined when calling boardsControllerCreateLabel().'
-            );
-        }
-
-        if (requestParameters['createLabelDto'] == null) {
-            throw new runtime.RequiredError(
-                'createLabelDto',
-                'Required parameter "createLabelDto" was null or undefined when calling boardsControllerCreateLabel().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/{boardId}/labels`;
-        urlPath = urlPath.replace(`{${"boardId"}}`, encodeURIComponent(String(requestParameters['boardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateLabelDtoToJSON(requestParameters['createLabelDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerCreateLabel(requestParameters: BoardsControllerCreateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerCreateLabelRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerCreateSprintRaw(requestParameters: BoardsControllerCreateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['boardId'] == null) {
-            throw new runtime.RequiredError(
-                'boardId',
-                'Required parameter "boardId" was null or undefined when calling boardsControllerCreateSprint().'
-            );
-        }
-
-        if (requestParameters['createSprintDto'] == null) {
-            throw new runtime.RequiredError(
-                'createSprintDto',
-                'Required parameter "createSprintDto" was null or undefined when calling boardsControllerCreateSprint().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/{boardId}/sprints`;
-        urlPath = urlPath.replace(`{${"boardId"}}`, encodeURIComponent(String(requestParameters['boardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateSprintDtoToJSON(requestParameters['createSprintDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerCreateSprint(requestParameters: BoardsControllerCreateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerCreateSprintRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteAttachmentRaw(requestParameters: BoardsControllerDeleteAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerDeleteAttachment().'
-            );
-        }
-
-        if (requestParameters['attachmentId'] == null) {
-            throw new runtime.RequiredError(
-                'attachmentId',
-                'Required parameter "attachmentId" was null or undefined when calling boardsControllerDeleteAttachment().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/attachments/{attachmentId}`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-        urlPath = urlPath.replace(`{${"attachmentId"}}`, encodeURIComponent(String(requestParameters['attachmentId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteAttachment(requestParameters: BoardsControllerDeleteAttachmentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerDeleteAttachmentRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -1323,56 +741,6 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
      */
     async boardsControllerDeleteCard(requestParameters: BoardsControllerDeleteCardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.boardsControllerDeleteCardRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteChecklistItemRaw(requestParameters: BoardsControllerDeleteChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerDeleteChecklistItem().'
-            );
-        }
-
-        if (requestParameters['itemId'] == null) {
-            throw new runtime.RequiredError(
-                'itemId',
-                'Required parameter "itemId" was null or undefined when calling boardsControllerDeleteChecklistItem().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/checklist/{itemId}`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-        urlPath = urlPath.replace(`{${"itemId"}}`, encodeURIComponent(String(requestParameters['itemId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteChecklistItem(requestParameters: BoardsControllerDeleteChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerDeleteChecklistItemRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -1473,106 +841,6 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
      */
     async boardsControllerDeleteComment(requestParameters: BoardsControllerDeleteCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.boardsControllerDeleteCommentRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteLabelRaw(requestParameters: BoardsControllerDeleteLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['boardId'] == null) {
-            throw new runtime.RequiredError(
-                'boardId',
-                'Required parameter "boardId" was null or undefined when calling boardsControllerDeleteLabel().'
-            );
-        }
-
-        if (requestParameters['labelId'] == null) {
-            throw new runtime.RequiredError(
-                'labelId',
-                'Required parameter "labelId" was null or undefined when calling boardsControllerDeleteLabel().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/{boardId}/labels/{labelId}`;
-        urlPath = urlPath.replace(`{${"boardId"}}`, encodeURIComponent(String(requestParameters['boardId'])));
-        urlPath = urlPath.replace(`{${"labelId"}}`, encodeURIComponent(String(requestParameters['labelId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteLabel(requestParameters: BoardsControllerDeleteLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerDeleteLabelRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteSprintRaw(requestParameters: BoardsControllerDeleteSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['boardId'] == null) {
-            throw new runtime.RequiredError(
-                'boardId',
-                'Required parameter "boardId" was null or undefined when calling boardsControllerDeleteSprint().'
-            );
-        }
-
-        if (requestParameters['sprintId'] == null) {
-            throw new runtime.RequiredError(
-                'sprintId',
-                'Required parameter "sprintId" was null or undefined when calling boardsControllerDeleteSprint().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/{boardId}/sprints/{sprintId}`;
-        urlPath = urlPath.replace(`{${"boardId"}}`, encodeURIComponent(String(requestParameters['boardId'])));
-        urlPath = urlPath.replace(`{${"sprintId"}}`, encodeURIComponent(String(requestParameters['sprintId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerDeleteSprint(requestParameters: BoardsControllerDeleteSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerDeleteSprintRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -1911,274 +1179,6 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
 
     /**
      */
-    async boardsControllerUpdateCardAssigneeRaw(requestParameters: BoardsControllerUpdateCardAssigneeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerUpdateCardAssignee().'
-            );
-        }
-
-        if (requestParameters['updateCardAssigneeDto'] == null) {
-            throw new runtime.RequiredError(
-                'updateCardAssigneeDto',
-                'Required parameter "updateCardAssigneeDto" was null or undefined when calling boardsControllerUpdateCardAssignee().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/assignee`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateCardAssigneeDtoToJSON(requestParameters['updateCardAssigneeDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateCardAssignee(requestParameters: BoardsControllerUpdateCardAssigneeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateCardAssigneeRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateCardLabelsRaw(requestParameters: BoardsControllerUpdateCardLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerUpdateCardLabels().'
-            );
-        }
-
-        if (requestParameters['updateCardLabelsDto'] == null) {
-            throw new runtime.RequiredError(
-                'updateCardLabelsDto',
-                'Required parameter "updateCardLabelsDto" was null or undefined when calling boardsControllerUpdateCardLabels().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/labels`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateCardLabelsDtoToJSON(requestParameters['updateCardLabelsDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateCardLabels(requestParameters: BoardsControllerUpdateCardLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateCardLabelsRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateCardSprintRaw(requestParameters: BoardsControllerUpdateCardSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerUpdateCardSprint().'
-            );
-        }
-
-        if (requestParameters['updateCardSprintDto'] == null) {
-            throw new runtime.RequiredError(
-                'updateCardSprintDto',
-                'Required parameter "updateCardSprintDto" was null or undefined when calling boardsControllerUpdateCardSprint().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/sprint`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateCardSprintDtoToJSON(requestParameters['updateCardSprintDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateCardSprint(requestParameters: BoardsControllerUpdateCardSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateCardSprintRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateCardWatchersRaw(requestParameters: BoardsControllerUpdateCardWatchersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerUpdateCardWatchers().'
-            );
-        }
-
-        if (requestParameters['updateCardWatchersDto'] == null) {
-            throw new runtime.RequiredError(
-                'updateCardWatchersDto',
-                'Required parameter "updateCardWatchersDto" was null or undefined when calling boardsControllerUpdateCardWatchers().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/watchers`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateCardWatchersDtoToJSON(requestParameters['updateCardWatchersDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateCardWatchers(requestParameters: BoardsControllerUpdateCardWatchersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateCardWatchersRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateChecklistItemRaw(requestParameters: BoardsControllerUpdateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['cardId'] == null) {
-            throw new runtime.RequiredError(
-                'cardId',
-                'Required parameter "cardId" was null or undefined when calling boardsControllerUpdateChecklistItem().'
-            );
-        }
-
-        if (requestParameters['itemId'] == null) {
-            throw new runtime.RequiredError(
-                'itemId',
-                'Required parameter "itemId" was null or undefined when calling boardsControllerUpdateChecklistItem().'
-            );
-        }
-
-        if (requestParameters['updateChecklistItemDto'] == null) {
-            throw new runtime.RequiredError(
-                'updateChecklistItemDto',
-                'Required parameter "updateChecklistItemDto" was null or undefined when calling boardsControllerUpdateChecklistItem().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/cards/{cardId}/checklist/{itemId}`;
-        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
-        urlPath = urlPath.replace(`{${"itemId"}}`, encodeURIComponent(String(requestParameters['itemId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateChecklistItemDtoToJSON(requestParameters['updateChecklistItemDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateChecklistItem(requestParameters: BoardsControllerUpdateChecklistItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateChecklistItemRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
     async boardsControllerUpdateColumnRaw(requestParameters: BoardsControllerUpdateColumnRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['boardId'] == null) {
             throw new runtime.RequiredError(
@@ -2239,85 +1239,25 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
 
     /**
      */
-    async boardsControllerUpdateLabelRaw(requestParameters: BoardsControllerUpdateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['boardId'] == null) {
+    async boardsControllerUpdateCommentRaw(requestParameters: BoardsControllerUpdateCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['cardId'] == null) {
             throw new runtime.RequiredError(
-                'boardId',
-                'Required parameter "boardId" was null or undefined when calling boardsControllerUpdateLabel().'
+                'cardId',
+                'Required parameter "cardId" was null or undefined when calling boardsControllerUpdateComment().'
             );
         }
 
-        if (requestParameters['labelId'] == null) {
+        if (requestParameters['commentId'] == null) {
             throw new runtime.RequiredError(
-                'labelId',
-                'Required parameter "labelId" was null or undefined when calling boardsControllerUpdateLabel().'
+                'commentId',
+                'Required parameter "commentId" was null or undefined when calling boardsControllerUpdateComment().'
             );
         }
 
-        if (requestParameters['updateLabelDto'] == null) {
+        if (requestParameters['updateCommentDto'] == null) {
             throw new runtime.RequiredError(
-                'updateLabelDto',
-                'Required parameter "updateLabelDto" was null or undefined when calling boardsControllerUpdateLabel().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/{boardId}/labels/{labelId}`;
-        urlPath = urlPath.replace(`{${"boardId"}}`, encodeURIComponent(String(requestParameters['boardId'])));
-        urlPath = urlPath.replace(`{${"labelId"}}`, encodeURIComponent(String(requestParameters['labelId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateLabelDtoToJSON(requestParameters['updateLabelDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateLabel(requestParameters: BoardsControllerUpdateLabelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateLabelRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateSprintRaw(requestParameters: BoardsControllerUpdateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['boardId'] == null) {
-            throw new runtime.RequiredError(
-                'boardId',
-                'Required parameter "boardId" was null or undefined when calling boardsControllerUpdateSprint().'
-            );
-        }
-
-        if (requestParameters['sprintId'] == null) {
-            throw new runtime.RequiredError(
-                'sprintId',
-                'Required parameter "sprintId" was null or undefined when calling boardsControllerUpdateSprint().'
-            );
-        }
-
-        if (requestParameters['updateSprintDto'] == null) {
-            throw new runtime.RequiredError(
-                'updateSprintDto',
-                'Required parameter "updateSprintDto" was null or undefined when calling boardsControllerUpdateSprint().'
+                'updateCommentDto',
+                'Required parameter "updateCommentDto" was null or undefined when calling boardsControllerUpdateComment().'
             );
         }
 
@@ -2336,16 +1276,16 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
             }
         }
 
-        let urlPath = `/api/boards/{boardId}/sprints/{sprintId}`;
-        urlPath = urlPath.replace(`{${"boardId"}}`, encodeURIComponent(String(requestParameters['boardId'])));
-        urlPath = urlPath.replace(`{${"sprintId"}}`, encodeURIComponent(String(requestParameters['sprintId'])));
+        let urlPath = `/api/boards/cards/{cardId}/comments/{commentId}`;
+        urlPath = urlPath.replace(`{${"cardId"}}`, encodeURIComponent(String(requestParameters['cardId'])));
+        urlPath = urlPath.replace(`{${"commentId"}}`, encodeURIComponent(String(requestParameters['commentId'])));
 
         const response = await this.request({
             path: urlPath,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
-            body: UpdateSprintDtoToJSON(requestParameters['updateSprintDto']),
+            body: UpdateCommentDtoToJSON(requestParameters['updateCommentDto']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -2353,68 +1293,8 @@ export class BoardsApi extends runtime.BaseAPI implements BoardsApiInterface {
 
     /**
      */
-    async boardsControllerUpdateSprint(requestParameters: BoardsControllerUpdateSprintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateSprintRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateSprintStatusRaw(requestParameters: BoardsControllerUpdateSprintStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['boardId'] == null) {
-            throw new runtime.RequiredError(
-                'boardId',
-                'Required parameter "boardId" was null or undefined when calling boardsControllerUpdateSprintStatus().'
-            );
-        }
-
-        if (requestParameters['sprintId'] == null) {
-            throw new runtime.RequiredError(
-                'sprintId',
-                'Required parameter "sprintId" was null or undefined when calling boardsControllerUpdateSprintStatus().'
-            );
-        }
-
-        if (requestParameters['updateSprintStatusDto'] == null) {
-            throw new runtime.RequiredError(
-                'updateSprintStatusDto',
-                'Required parameter "updateSprintStatusDto" was null or undefined when calling boardsControllerUpdateSprintStatus().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/boards/{boardId}/sprints/{sprintId}/status`;
-        urlPath = urlPath.replace(`{${"boardId"}}`, encodeURIComponent(String(requestParameters['boardId'])));
-        urlPath = urlPath.replace(`{${"sprintId"}}`, encodeURIComponent(String(requestParameters['sprintId'])));
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: UpdateSprintStatusDtoToJSON(requestParameters['updateSprintStatusDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async boardsControllerUpdateSprintStatus(requestParameters: BoardsControllerUpdateSprintStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.boardsControllerUpdateSprintStatusRaw(requestParameters, initOverrides);
+    async boardsControllerUpdateComment(requestParameters: BoardsControllerUpdateCommentRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.boardsControllerUpdateCommentRaw(requestParameters, initOverrides);
     }
 
 }

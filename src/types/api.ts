@@ -23,23 +23,6 @@ export interface BoardSummary {
   columnCount?: number;
 }
 
-export interface CardLabel {
-  id: string;
-  name: string;
-  color: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface ChecklistItem {
-  id: string;
-  content: string;
-  completed: boolean;
-  position: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
 export interface CardComment {
   id: string;
   content: string;
@@ -48,31 +31,9 @@ export interface CardComment {
   updatedAt: string;
 }
 
-export interface Attachment {
-  id: string;
-  name: string;
-  url: string;
-  mimeType?: string;
-  uploadedBy?: User;
-  createdAt: string;
-}
-
 export type CardPriority = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
 
 export type CardType = "TASK" | "BUG" | "STORY" | "EPIC";
-
-export type SprintStatus = "PLANNED" | "ACTIVE" | "COMPLETED" | "CANCELLED";
-
-export interface Sprint {
-  id: string;
-  name: string;
-  goal?: string;
-  startDate?: string;
-  endDate?: string;
-  status: SprintStatus;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export interface BoardCard {
   id: string;
@@ -85,12 +46,7 @@ export interface BoardCard {
   storyPoints?: number;
   assignee?: User | null;
   reporter?: User | null;
-  watchers: User[];
-  labels: CardLabel[];
-  checklistItems: ChecklistItem[];
   comments: CardComment[];
-  attachments: Attachment[];
-  sprint?: Sprint | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -111,8 +67,6 @@ export interface Board {
   owner?: User | null;
   members: User[];
   columns: BoardColumn[];
-  labels: CardLabel[];
-  sprints: Sprint[];
   createdAt: string;
   updatedAt: string;
 }
@@ -136,7 +90,6 @@ export interface CreateCardInput {
   storyPoints?: number;
   assigneeId?: string;
   reporterId?: string;
-  labelIds?: string[];
 }
 
 export interface UpdateBoardInput {
@@ -158,7 +111,6 @@ export interface UpdateCardInput {
   storyPoints?: number;
   assigneeId?: string;
   reporterId?: string;
-  labelIds?: string[];
 }
 
 export interface MoveCardInput {
@@ -168,4 +120,16 @@ export interface MoveCardInput {
 
 export interface ReorderColumnsInput {
   columnOrder: string[];
+}
+
+export interface AddBoardMemberInput {
+  email: string;
+}
+
+export interface AddCommentInput {
+  content: string;
+}
+
+export interface UpdateCommentInput {
+  content: string;
 }

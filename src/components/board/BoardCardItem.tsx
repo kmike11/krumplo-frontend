@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import type { BoardCard } from "../../types/api";
 import { CARD_DND_TYPE } from "./dnd";
@@ -59,11 +58,6 @@ export const BoardCardItem = ({
     dragRef(dropRef(node));
   };
 
-  const completedChecklistCount = useMemo(
-    () => card.checklistItems.filter((item) => item.completed).length,
-    [card.checklistItems]
-  );
-
   const description = card.description?.trim();
 
   return (
@@ -93,25 +87,6 @@ export const BoardCardItem = ({
       </div>
       <h4 style={{ margin: "0.35rem 0" }}>{card.title}</h4>
       {description ? <p className="card-description">{description}</p> : null}
-      {card.labels.length > 0 ? (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "0.35rem"
-          }}
-        >
-          {card.labels.map((label) => (
-            <span
-              key={label.id}
-              className="label-pill"
-              style={{ background: label.color, color: "#fff" }}
-            >
-              {label.name}
-            </span>
-          ))}
-        </div>
-      ) : null}
       {card.assignee ? (
         <p className="helper-text" style={{ margin: 0 }}>
           Assignee: {card.assignee.displayName}
@@ -130,9 +105,6 @@ export const BoardCardItem = ({
       >
         <span className="helper-text">
           {card.comments.length} comment{card.comments.length === 1 ? "" : "s"}
-        </span>
-        <span className="helper-text">
-          {completedChecklistCount}/{card.checklistItems.length} checklist
         </span>
       </div>
     </article>

@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `userId` | string
+`email` | string
 
 ## Example
 
@@ -16,6 +17,7 @@ import type { AddBoardMemberDto } from ''
 // TODO: Update the object below with actual values
 const example = {
   "userId": null,
+  "email": new.member@example.com,
 } satisfies AddBoardMemberDto
 
 console.log(example)
